@@ -1,20 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StatusBar } from 'react-native';
+import * as SplashScreen from 'expo-splash-screen'
+import { Home } from './src/pages/Home'
 
+import { 
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_700Bold,
+} from '@expo-google-fonts/inter'
+import {useFonts} from 'expo-font'
+SplashScreen.preventAutoHideAsync()
+
+ 
 export default function App() {
+
+  const [fontLoaded] = useFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_700Bold,
+  })
+  if(!fontLoaded) return null
+  SplashScreen.hideAsync()
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <>
+        <StatusBar 
+          barStyle="light-content" 
+          translucent 
+          backgroundColor="transparent" 
+        />
+        <Home />
+    </>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+
+
+
+
+
+
