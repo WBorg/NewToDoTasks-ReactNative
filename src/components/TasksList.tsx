@@ -6,7 +6,7 @@ import {Feather} from '@expo/vector-icons'
 
 import { ItemWrapper } from './ItemWrapper';
 
-import trashIcon from '../assets/icons/trash/trash.png'
+import trashIcon from '../assets/images/trash.png'
 
 export interface Task {
   id: number;
@@ -29,16 +29,14 @@ export function TasksList({ tasks, toggleTaskDone, removeTask }: TasksListProps)
       showsVerticalScrollIndicator={false}
       renderItem={({ item, index }) => {
         return (
-          <ItemWrapper index={index}>
+          <ItemWrapper>
             <View>
               <TouchableOpacity
-                testID={`button-${index}`}
                 activeOpacity={0.7}
                 style={styles.taskButton}
                 onPress={()=>toggleTaskDone(item.id)}
               >
                 <View 
-                  testID={`marker-${index}`}
                   style={item.done ? styles.taskMarkerDone : styles.taskMarker}
                 >
                   { item.done && (
@@ -59,7 +57,6 @@ export function TasksList({ tasks, toggleTaskDone, removeTask }: TasksListProps)
             </View>
 
             <TouchableOpacity
-              testID={`trash-${index}`}
               style={{ paddingHorizontal: 24 }}
               onPress={()=> removeTask(item.id)}
             >

@@ -4,11 +4,14 @@ import {Header} from '../components/Header'
 import { Task, TasksList } from '../components/TasksList';
 
 import { TodoInput } from "../components/TodoInput";
+import { TasksProgress } from "../components/TasksProgress";
+
 
 
 export function Home(){
 
   const [tasks, setTasks] = useState<Task[]>([])
+  const [tasksDone, setTasksDone] = useState<number>(0)
 
   function handleAddTask(newTaskTitle : string){
 
@@ -18,8 +21,52 @@ export function Home(){
       done: false
     }
     setTasks( oldTasks => [...oldTasks , newTask])
-    console.log(tasks)
+    
 
+
+  }
+  function handleToggleTaskDone(id: number) {
+    const updatedTasks = tasks.map(task => ({ ...task }))
+    const taskToogleDone = updatedTasks.find(task => task.id == id)
+    if(!taskToogleDone)
+      return
+
+    
+    taskToogleDone.done = !taskToogleDone.done
+    setTasks(updatedTasks)
+    
+     const total = updatedTasks.reduce(( total, {done} ) => {
+        if(done){
+          return total + 1
+        }
+        else{
+          return total + 0
+        }
+
+     },0)  
+      
+    setTasksDone(total)  
+    
+    
+    
+
+  }
+
+  function handleRemoveTask(id: number) {
+    const filterTasks = tasks.filter(task => task.id !== id)
+    setTasks(filterTasks)
+
+    const total = filterTasks.reduce(( total, {done} ) => {
+      if(done){
+        return total + 1
+      }
+      else{
+        return total + 0
+      }
+
+   },0)  
+    
+  setTasksDone(total) 
 
   }
 
@@ -27,6 +74,12 @@ export function Home(){
     <View style={styles.container}>
       <Header/>
       <TodoInput addTask={handleAddTask} />
+      <TasksProgress allTasksCounter={tasks.length} doneTasksCounter={tasksDone}/>
+      <TasksList 
+        tasks={tasks} 
+        toggleTaskDone={handleToggleTaskDone}
+        removeTask={handleRemoveTask} 
+      />
 
     </View>
   )
