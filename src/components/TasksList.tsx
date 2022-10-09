@@ -30,7 +30,7 @@ export function TasksList({ tasks, toggleTaskDone, removeTask }: TasksListProps)
       renderItem={({ item, index }) => {
         return (
           <ItemWrapper>
-            <View>
+            <View style={{flex:1}}>
               <TouchableOpacity
                 activeOpacity={0.7}
                 style={styles.taskButton}
@@ -43,24 +43,24 @@ export function TasksList({ tasks, toggleTaskDone, removeTask }: TasksListProps)
                     <Feather 
                       name="check"
                       size={12}
-                      color="#FFF"
+                      color="#F2F2F2"
                     />
                   )}
                 </View>
-
-                <Text 
-                  style={item.done ? styles.taskTextDone : styles.taskText}
-                >
-                  {item.title}
-                </Text>
+                <View >
+                  <Text style={item.done ? styles.taskTextDone : styles.taskText}>
+                    {item.title}
+                  </Text>
+                </View>     
+               
               </TouchableOpacity>
             </View>
 
             <TouchableOpacity
-              style={{ paddingHorizontal: 24 }}
+              style={{ marginLeft:18, marginRight: 17.52}}
               onPress={()=> removeTask(item.id)}
             >
-              <Image source={trashIcon} />
+              <Image  source={trashIcon} />
             </TouchableOpacity>
           </ItemWrapper>
         )
@@ -75,39 +75,46 @@ export function TasksList({ tasks, toggleTaskDone, removeTask }: TasksListProps)
 const styles = StyleSheet.create({
   taskButton: {
     flex: 1,
-    paddingHorizontal: 24,
+    paddingHorizontal: 15.52,
     paddingVertical: 15,
     marginBottom: 4,
     borderRadius: 4,
     flexDirection: 'row',
     alignItems: 'center',
+    
   },
   taskMarker: {
-    height: 16,
-    width: 16,
-    borderRadius: 4,
+    height: 17.45,
+    width: 17.45,
+    borderRadius: 999,
     borderWidth: 1,
-    borderColor: '#B2B2B2',
-    marginRight: 15,
+    borderColor: '#4EA8DE',
+    marginRight: 11.27,
     alignItems: 'center',
     justifyContent: 'center'
   },
   taskText: {
-    color: '#666',
-    fontFamily: 'Inter_500Medium'
+    color: '#E1E1E6',
+    fontFamily: 'Inter_400Regular',
+    fontSize:14,
+    
+    
+    
   },
   taskMarkerDone: {
-    height: 16,
-    width: 16,
-    borderRadius: 4,
-    backgroundColor: '#1DB863',
-    marginRight: 15,
+    height: 17.45,
+    width: 17.45,
+    borderRadius: 999,
+    backgroundColor: '#5E60CE',
+    marginRight: 11.27,
     alignItems: 'center',
     justifyContent: 'center'
   },
   taskTextDone: {
-    color: '#1DB863',
+    color: '#808080',
     textDecorationLine: 'line-through',
-    fontFamily: 'Inter_500Medium'
+    fontFamily: 'Inter_400Regular',
+    
   }
+ 
 })
