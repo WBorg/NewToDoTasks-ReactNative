@@ -6,7 +6,8 @@ import {Feather} from '@expo/vector-icons'
 
 import { ItemWrapper } from './ItemWrapper';
 
-import trashIcon from '../assets/images/trash.png'
+import trashIcon from '../assets/images/trash.png';
+import clipBoard from '../assets/images/Clipboard.png';
 
 export interface Task {
   id: number;
@@ -27,6 +28,19 @@ export function TasksList({ tasks, toggleTaskDone, removeTask }: TasksListProps)
       keyExtractor={item => String(item.id)}
       contentContainerStyle={{ paddingBottom: 24 }}
       showsVerticalScrollIndicator={false}
+      ListEmptyComponent={()=>(
+        <View style={{alignItems:'center',borderTopWidth: 1, borderTopColor:'#333333',
+              paddingTop: 48, marginHorizontal:24
+        }}>
+          <Image style={{marginBottom:16}} source={clipBoard} />
+          <Text style={{fontSize:14,fontFamily:'Inter_700Bold',color:'#808080'}}
+          >
+            Você ainda não tem tarefas cadastradas</Text>
+          <Text  style={{fontSize:14,fontFamily:'Inter_400Regular',color:'#808080'}}
+          >
+            Crie tarefas e organize seus itens a fazer</Text>
+        </View>
+      )}
       renderItem={({ item, index }) => {
         return (
           <ItemWrapper>
