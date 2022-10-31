@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import React, {useState} from 'react'
 import {Header} from '../components/Header'
 import { Task, TasksList } from '../components/TasksList';
@@ -52,21 +52,39 @@ export function Home(){
 
   }
 
-  function handleRemoveTask(id: number) {
-    const filterTasks = tasks.filter(task => task.id !== id)
-    setTasks(filterTasks)
+  function handleRemoveTask(id : number, title: string) {
 
-    const total = filterTasks.reduce(( total, {done} ) => {
-      if(done){
-        return total + 1
-      }
-      else{
-        return total + 0
-      }
+    Alert.alert("Remover", `Deseja remover a tarefa ${title}?`,[
+      {
+          text: 'Sim',
+          onPress: () =>  {
+            const filterTasks = tasks.filter(task => task.id !== id)
+            setTasks(filterTasks)
 
-   },0)  
+            const total = filterTasks.reduce(( total, {done} ) => {
+            if(done){
+              return total + 1
+            }
+            else{
+              return total + 0
+            }
+
+        },0)  
+            
+          setTasksDone(total) 
+            
+          
+        }
+        
+      },
+      {
+        text: 'Não',
+        style: 'cancel'
+      },
+    ])
+
+
     
-  setTasksDone(total) 
 
   }
 

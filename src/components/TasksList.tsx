@@ -18,7 +18,7 @@ export interface Task {
 interface TasksListProps {
   tasks: Task[];
   toggleTaskDone: (id: number) => void;
-  removeTask: (id: number) => void;
+  removeTask: (id: number, name:string) => void;
 }
 
 export function TasksList({ tasks, toggleTaskDone, removeTask }: TasksListProps) {
@@ -72,7 +72,7 @@ export function TasksList({ tasks, toggleTaskDone, removeTask }: TasksListProps)
 
             <TouchableOpacity
               style={{ marginLeft:18, marginRight: 17.52}}
-              onPress={()=> removeTask(item.id)}
+              onPress={()=> removeTask(item.id, item.title)}
             >
               <Image  source={trashIcon} />
             </TouchableOpacity>
